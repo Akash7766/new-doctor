@@ -65,7 +65,7 @@ const Signup = () => {
             />
             <input
               type="submit"
-              class="btn btn-bordered input-accent w-full max-w-xs bg-transparent"
+              class="btn btn-bordered input-accent w-full max-w-xs"
             />
           </form>
           <p>
