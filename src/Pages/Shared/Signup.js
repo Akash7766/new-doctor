@@ -3,16 +3,21 @@ import {
   useAuthState,
   useCreateUserWithEmailAndPassword,
 } from "react-firebase-hooks/auth";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import auth from "../../firebase.init";
+import useToken from "../../Hooks/useToken";
 import GoogleLogin from "./GoogleLogin";
 
 const Signup = () => {
   const [createUserWithEmailAndPassword, user, loading, error] =
     useCreateUserWithEmailAndPassword(auth);
   const [globalUser] = useAuthState(auth);
-
+  const [token] = useToken(globalUser);
+  const navigate = useNavigate();
+  if (token) {
+    navigate("/");
+  }
   useEffect(() => {
     if (globalUser) {
       toast.success("User created successful", {
@@ -39,7 +44,7 @@ const Signup = () => {
   return (
     <div className="h-screen flex justify-center items-center text-black">
       <div class="card shadow-xl">
-        <div class="card-body w-96">
+        <div class="card-body w-80 sm:w-96 ">
           <h2 class="text-2xl font-bold text-center mb-5">Signup</h2>
           <form onSubmit={handleCreateUser} className="grid gap-4">
             <input

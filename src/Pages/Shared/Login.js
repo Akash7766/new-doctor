@@ -6,6 +6,7 @@ import {
 import { Link, Navigate, useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import auth from "../../firebase.init";
+import useToken from "../../Hooks/useToken";
 import GoogleLogin from "./GoogleLogin";
 import Loading from "./Loading";
 
@@ -16,7 +17,8 @@ const Login = () => {
   let navigate = useNavigate();
   let location = useLocation();
   let from = location.state?.from?.pathname || "/";
-  if (globalUser) {
+  const [token] = useToken(globalUser);
+  if (token) {
     navigate(from, { replace: true });
   }
   useEffect(() => {

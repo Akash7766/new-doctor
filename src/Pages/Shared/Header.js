@@ -1,13 +1,16 @@
 import React from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { signOut } from "firebase/auth";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import auth from "../../firebase.init";
 
 const Header = () => {
   const [user, loading, error] = useAuthState(auth);
+  const location = useLocation();
+
   const logout = () => {
     signOut(auth);
+    localStorage.removeItem("accessToken");
   };
   const items = (
     <>
@@ -72,7 +75,14 @@ const Header = () => {
           <ul class="menu menu-horizontal p-0">{items}</ul>
         </div>
 
-        <div className="navbar-end lg:hidden">
+        <div
+          className={`${
+            location.pathname == "/dashboard" ||
+            location.pathname == "/dashboard/reviews"
+              ? "navbar-end lg:hidden"
+              : "hidden"
+          }`}
+        >
           <label tabindex="1" for="my-drawer-2" class="btn btn-ghost lg:hidden">
             <svg
               xmlns="http://www.w3.org/2000/svg"
