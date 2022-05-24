@@ -14,6 +14,7 @@ import Users from "./Pages/Appoinment/Users";
 import RequireAdmin from "./Pages/Shared/RequireAdmin";
 import AddDoctors from "./Pages/Dashboard/AddDoctors";
 import ManageDoctors from "./Pages/Dashboard/ManageDoctors";
+import Payment from "./Pages/Dashboard/Payment";
 
 function App() {
   return (
@@ -26,6 +27,14 @@ function App() {
           element={
             <RequireAuth>
               <Appoinment></Appoinment>
+            </RequireAuth>
+          }
+        ></Route>
+        <Route
+          path="/payment/:id"
+          element={
+            <RequireAuth>
+              <Payment></Payment>
             </RequireAuth>
           }
         ></Route>
